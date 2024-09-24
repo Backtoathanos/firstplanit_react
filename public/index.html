@@ -1,35 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" href="https://www.firstplanit.com/users/img/logo/FirstPlanit_logo.png" />
+  <link rel="shortcut icon" href="https://www.firstplanit.com/users/img/logo/FirstPlanit_logo.png" />
+  <link rel="stylesheet" href="https://www.firstplanit.com/front/css/font-awesome.min.css.gz" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-signin-client_id"
+    content="614918467238-7hki5m1r3gnrcpre9q8cvoo8g4c5nima.apps.googleusercontent.com" />
+  <script type="text/javascript"
+    src="https://fc702fb150e9.eu-west-2.sdk.awswaf.com/fc702fb150e9/c6bf1e0228f2/challenge.js" defer></script>
+
+  <!-- font awesome cdn -->
+  <script href="https://www.firstplanit.com/front/js/kit-fontawesome.js.gz" crossorigin="anonymous"></script>
+  <meta name="csrf-param" content="_csrf-frontend">
+  <meta name="csrf-token"
+    content="tqZRcTjvsVktXuSNbw1qmFIxD6C2r4gILcAMIZlTh_r50D9JSqbBMR0Xs-8MZBqoHEVAytHV-DFf9GF29Tn_mw==">
+  <title> My Dashboard</title>
+  <link href="https://www.firstplanit.com/css/site.css.gz" rel="stylesheet">
+  <link href="https://www.firstplanit.com/users/dist/css/bootstrap.min.css.gz" rel="stylesheet">
+  <link href="https://www.firstplanit.com/users/css/main_style.css.gz?v=1.1.1" rel="stylesheet">
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: red;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #46A78F;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #46A78F;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .cookie_setting {
+      margin: 50px 20px 0 20px;
+      width: 94%;
+    }
+
+    .cookie_setting td {
+      padding: 5px 0px;
+    }
+
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .se-pre-con {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url(/users/icons/loading.gif) center no-repeat #fff;
+      background-size: 300px 300px;
+    }
+
+    .mm_btn {
+      color: #FFFFFF !important;
+      text-decoration: none !important;
+      background: #39ACBA !important;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      cursor: pointer;
+      padding: 0.475rem 0.80rem;
+      font-size: 1rem;
+      border-radius: 0.25rem;
+      transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      display: inline-block;
+    }
+
+    .mm_btn:hover {
+      color: #FFFFFF !important;
+      text-decoration: none !important;
+      background: #1AA4B5 !important;
+    }
+
+    #maintenancePopup {
+      background: white;
+      width: 25%;
+      position: fixed;
+      left: 10px;
+      bottom: 20px;
+      box-shadow: 0px 0px 15px #cccccc;
+      padding: 15px 20px;
+      z-index: 9999;
+    }
+
+    #maintenancePopup p {
+      text-align: left;
+      font-size: 15px;
+      color: #4e4e4e;
+    }
+
+    #maintenancePopup button {
+      width: 100%;
+      background: #46A78F;
+      padding: 8px 5px;
+      border-radius: 10px;
+      border: 0px;
+      color: white;
+      cursor: pointer;
+    }
+
+    #maintenancePopup button:hover {
+      background: #60BFA7;
+    }
+
+    @media screen and (max-width: 600px) {
+      #maintenancePopup {
+        background: white;
+        width: 100%;
+        position: fixed;
+        left: 0px;
+        bottom: 20px;
+        box-shadow: 0px 0px 15px #cccccc;
+        padding: 15px 20px;
+        z-index: 9999;
+      }
+    }
+
+    #demo-basic {
+      display: none;
+    }
+
+    .basic-result {
+      display: none;
+    }
+
+    .cr-boundary {
+      /*margin-left: 1.5rem !important;*/
+    }
+
+    .croppie-container .cr-slider-wrap {
+      /*margin: 0px;
+        margin-left: 1.5rem !important;
+        text-align: left;*/
+    }
+
+    #newProject .rswitch_txt {
+      margin-left: 54px;
+      padding-top: 9px;
+    }
+
+    #newProject .rswitch_txt2 {
+      line-height: 16px;
+    }
+
+    #newProject .switch_share {
+      position: absolute !important;
+      display: inline-block !important;
+      width: 44px !important;
+      height: 24px !important;
+      margin-top: 9px !important;
+      margin-right: 4px !important;
+    }
+
+    #newProject .switch_share input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    #newProject .switch_share .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #D9D9D9;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    #newProject .switch_share .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 2px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    #newProject .switch_share input:checked+.slider {
+      background-color: #39ACBA;
+    }
+
+    #newProject .switch_share input:focus+.slider {
+      box-shadow: 0 0 1px #39ACBA;
+    }
+
+    #newProject .switch_share input:checked+.slider:before {
+      -webkit-transform: translateX(16px);
+      -ms-transform: translateX(16px);
+      transform: translateX(16px);
+    }
+
+    #newProject .switch_share .slider.round {
+      border-radius: 26px;
+    }
+
+    #newProject .switch_share .slider.round:before {
+      border-radius: 26px;
+    }
+
+    #newProject .wlc_ap label {
+      font-size: 16px !important;
+      font-family: 'VAGRoundedLT_Light_pro' !important;
+      color: #1D202F !important;
+      display: inline !important;
+    }
+
+    #newProject .wlc_box1 {
+      border: 1px solid #F4F4F4;
+      background: #FFFFFF;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+
+    #newProject .wlc_box1 label,
+    #newProject .wlc_box2 label {
+      font-size: 15px !important;
+    }
+
+    #newProject .wlc_box2 {
+      border: 1px solid #F4F4F4;
+      background: #F6F9FA;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+
+    .wlc_locker_report {
+      display: none;
+    }
+
+    #newProject .wlc_tooltip {
+      position: relative;
+      display: inline-block;
+      float: right;
+    }
+
+    #newProject .wlc_tooltip .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #F6F9FA;
+      border: 1px solid #F4F4F4;
+      color: #1D202F;
+      text-align: center;
+      font-size: 15px;
+      font-family: VAGRoundedLT_Light_pro;
+      font-weight: 400;
+      border-radius: 6px;
+      padding: 5px 10px;
+      position: absolute;
+      z-index: 1;
+      top: 150%;
+      left: 50%;
+      margin-left: -110px;
+    }
+
+    #newProject .wlc_tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent #F4F4F4 transparent;
+    }
+
+    #newProject .wlc_tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -39,5 +357,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
